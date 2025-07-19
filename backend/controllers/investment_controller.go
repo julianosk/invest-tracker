@@ -1,14 +1,16 @@
 package controllers
 
 import (
-	"net/http"
-	"github.com/gin-gonic/gin"
-	"investment-management-app/backend/models"
-	"investment-management-app/backend/config"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/bson"
 	"context"
+	"investment-management-app/config"
+	"investment-management-app/models"
+	"net/http"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 var investmentCollection *mongo.Collection = config.GetCollection(config.DB, "investments")

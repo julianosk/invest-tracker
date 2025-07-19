@@ -5,14 +5,16 @@ import (
 )
 
 type Config struct {
-	DatabaseURI string
-	Port        string
+	MongoURI        string
+	MongoCollection string
+	Port            string
 }
 
 func LoadConfig() (*Config, error) {
 	return &Config{
-		DatabaseURI: getEnv("DATABASE_URI", "mongodb://localhost:27017/investment_management"),
-		Port:        getEnv("PORT", "8080"),
+		MongoURI:        getEnv("DATABASE_URI", "mongodb://localhost:27017/investment_management"),
+		MongoCollection: getEnv("DATABASE_COLLECTION", "mongodb://localhost:27017/investment_management"),
+		Port:            getEnv("PORT", "8080"),
 	}, nil
 }
 
