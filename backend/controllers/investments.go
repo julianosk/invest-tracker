@@ -55,6 +55,12 @@ func (i *Investments) GetInvestments(c *gin.Context) {
 		}
 		investments = append(investments, investment)
 	}
+	investments = append(investments, models.Investment{
+		ID:        primitive.NewObjectID(),
+		Name:      "Sample Investment",
+		Amount:    1000.00,
+		CreatedAt: time.Now(),
+	})
 	c.JSON(http.StatusOK, investments)
 }
 
