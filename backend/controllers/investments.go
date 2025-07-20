@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"context"
-	"investment-management-app/config"
 	"investment-management-app/models"
 	"net/http"
 	"time"
@@ -12,10 +11,17 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
+type Investments struct {
+	collection *mongo.Collection
+}
 
-var investmentCollection *mongo.Collection = config.GetCollection(config.DB, "investments")
+func NewInvestmentsController(collection *mongo.Collection) *Investments {
+	return &Investments{
+		collection: collection,
+	}
+}
 
-func CreateInvestment(c *gin.Context) {
+func (i *Investments) CreateInvestment(c *gin.Context) {
 	var investment models.Investment
 	if err := c.BindJSON(&investment); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -24,7 +30,7 @@ func CreateInvestment(c *gin.Context) {
 	investment.ID = primitive.NewObjectID()
 	investment.CreatedAt = time.Now()
 
-	_, err := investmentCollection.InsertOne(context.Background(), investment)
+	_, err := i.collection.InsertOne(context.Background(), investment)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -32,9 +38,9 @@ func CreateInvestment(c *gin.Context) {
 	c.JSON(http.StatusCreated, investment)
 }
 
-func GetInvestments(c *gin.Context) {
+func (i *Investments) GetInvestments(c *gin.Context) {
 	var investments []models.Investment
-	cursor, err := investmentCollection.Find(context.Background(), bson.M{})
+	cursor, err := i.collection.Find(context.Background(), bson.M{})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -52,7 +58,7 @@ func GetInvestments(c *gin.Context) {
 	c.JSON(http.StatusOK, investments)
 }
 
-func UpdateInvestment(c *gin.Context) {
+func (i *Investments) UpdateInvestment(c *gin.Context) {
 	id := c.Param("id")
 	var investment models.Investment
 	if err := c.BindJSON(&investment); err != nil {
@@ -63,7 +69,7 @@ func UpdateInvestment(c *gin.Context) {
 	filter := bson.M{"_id": id}
 	update := bson.M{"$set": investment}
 
-	_, err := investmentCollection.UpdateOne(context.Background(), filter, update)
+	_, err := i.collection.UpdateOne(context.Background(), filter, update)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

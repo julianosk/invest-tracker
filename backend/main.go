@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 	"investment-management-app/config"
+	"investment-management-app/controllers"
 	"investment-management-app/routes"
 	"log"
-	"net/http"
 
-	"github.com/gorilla/mux"
+	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -30,11 +30,12 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Println("Connected to MongoDB!")
+	mongoCollection := client.Database(cfg.MongoCollection).Collection(cfg.MongoCollection)
+	investmentController := controllers.NewInvestmentsController(mongoCollection)
 
-	r := mux.NewRouter()
-	routes.SetupRoutes(r)
+	r := gin.Default()
+	routes.SetupRoutes(r, investmentController)
 
-	http.Handle("/", r)
 	log.Println("Server is running on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(r.Run(":8080"))
 }

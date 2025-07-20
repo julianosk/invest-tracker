@@ -5,11 +5,11 @@ import (
     "investment-management-app/controllers"
 )
 
-func SetupRoutes(router *gin.Engine) {
+func SetupRoutes(router *gin.Engine, investments *controllers.Investments) {
     investmentGroup := router.Group("/api/investments")
     {
-        investmentGroup.POST("/", controllers.CreateInvestment)
-        investmentGroup.GET("/", controllers.GetInvestments)
-        investmentGroup.PUT("/:id", controllers.UpdateInvestment)
+        investmentGroup.POST("/", investments.CreateInvestment)
+        investmentGroup.GET("/", investments.GetInvestments)
+        investmentGroup.PUT("/:id", investments.UpdateInvestment)
     }
 }
