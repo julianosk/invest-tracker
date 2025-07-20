@@ -17,7 +17,7 @@ This is the backend part of the Investment Management application built with Gol
 1. **Clone the repository**:
    ```
    git clone <repository-url>
-   cd investment-management-app/backend
+   cd invest-tracker/backend
    ```
 
 2. **Install dependencies**:

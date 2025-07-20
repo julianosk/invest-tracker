@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"context"
-	"investment-management-app/models"
+	"invest-tracker/models"
 	"net/http"
 	"time"
 

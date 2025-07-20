@@ -1,10 +1,9 @@
-module investment-management-app
+module invest-tracker
 
-go 1.18
+go 1.24
 
 require (
 	github.com/gin-gonic/gin v1.7.4
-	github.com/gorilla/mux v1.8.1
 	go.mongodb.org/mongo-driver v1.10.2
 )
 

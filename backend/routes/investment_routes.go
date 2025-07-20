@@ -2,7 +2,7 @@ package routes
 
 import (
     "github.com/gin-gonic/gin"
-    "investment-management-app/controllers"
+    "invest-tracker/controllers"
 )
 
 func SetupRoutes(router *gin.Engine, investments *controllers.Investments) {

@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
-	"investment-management-app/config"
-	"investment-management-app/controllers"
-	"investment-management-app/routes"
+	"invest-tracker/config"
+	"invest-tracker/controllers"
+	"invest-tracker/routes"
 	"log"
 
 	"github.com/gin-gonic/gin"

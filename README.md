@@ -5,7 +5,7 @@ This project is an investment management application that allows users to manage
 ## Project Structure
 
 ```
-investment-management-app
+invest-tracker
 ├── backend                # Backend application
 │   ├── main.go           # Entry point for the Golang application
 │   ├── go.mod            # Module definition and dependencies
