@@ -5,18 +5,14 @@ import (
 )
 
 type Config struct {
-	MongoURI        string
-	MongoDB         string
-	MongoCollection string
-	Port            string
+	PostgresDSN string
+	Port        string
 }
 
 func LoadConfig() (*Config, error) {
 	return &Config{
-		MongoURI:        getEnv("MONGO_URI", "mongodb://localhost:27017/investment_management"),
-		MongoDB:         getEnv("MONGO_DB", "invest-tracker"),
-		MongoCollection: getEnv("MONGO_COLLECTION", "investments"),
-		Port:            getEnv("PORT", "8080"),
+		PostgresDSN: getEnv("POSTGRES_DSN", "host=postgres user=postgres password=postgres dbname=investments port=5432 sslmode=disable"),
+		Port:        getEnv("PORT", "8080"),
 	}, nil
 }
 

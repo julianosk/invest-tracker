@@ -1,4 +1,30 @@
+@host = http://localhost:8080
 
-
-GET http://localhost:8080/api/investments HTTP/1.1
+GET {{host}}/api/investments HTTP/1.1
 content-type: application/json
+
+###
+
+### Create a new investment
+POST {{host}}/api/investments
+content-type: application/json
+
+{
+  "name": "Test Investment",
+  "amount": 1000.50,
+  "asset_class": "Stocks",
+  "asset_sub_class": "Tech"
+}
+
+###
+
+### Update an investment (replace :id with actual investment ID)
+PUT {{host}}/api/investments/1
+content-type: application/json
+
+{
+  "name": "Updated Investment",
+  "amount": 1500.75,
+  "asset_class": "Stocks",
+  "asset_sub_class": "Healthcare"
+}
