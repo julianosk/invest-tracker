@@ -7,7 +7,7 @@ up:
 	docker compose up
 
 down:
-	docker compose d=-==`own
+	docker compose down
 
 logs:
 	docker compose logs -f

@@ -1,10 +1,10 @@
 # Investment Management App - Backend
 
-This is the backend part of the Investment Management application built with Golang and MongoDB.
+This is the backend part of the Investment Management application built with Golang and PostgreSQL.
 
 ## Project Structure
 
-- **main.go**: Entry point of the application. Initializes the server and connects to the MongoDB database.
+- **main.go**: Entry point of the application. Initializes the server and connects to the PostgreSQL database.
 - **go.mod**: Defines the module and its dependencies.
 - **go.sum**: Contains checksums for module dependencies.
 - **config/config.go**: Holds configuration settings such as database connection strings.
@@ -26,7 +26,7 @@ This is the backend part of the Investment Management application built with Gol
    ```
 
 3. **Configure the database**:
-   Update the configuration settings in `config/config.go` with your MongoDB connection string.
+   Update the configuration settings in `config/config.go` with your PostgreSQL connection string.
 
 4. **Run the application**:
    ```
