@@ -1,41 +1,39 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"invest-tracker/config"
 	"invest-tracker/controllers"
+	"invest-tracker/models"
 	"invest-tracker/routes"
 	"log"
 
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 func main() {
 	cfg, err := config.LoadConfig()
 	if err != nil {
-		panic(fmt.Errorf("cannot load configuration", err))
+		panic(fmt.Errorf("cannot load configuration: %w", err))
 	}
 
-	clientOptions := options.Client().ApplyURI(cfg.MongoURI)
-	client, err := mongo.Connect(context.TODO(), clientOptions)
+	log.Println("Connecting to PostgreSQL with DSN:", cfg.PostgresDSN)
+
+	db, err := gorm.Open(postgres.Open(cfg.PostgresDSN), &gorm.Config{})
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("failed to connect to database:", err)
 	}
-
-	err = client.Ping(context.TODO(), nil)
-	if err != nil {
-		log.Fatal(err)
+	if err := db.AutoMigrate(&models.Investment{}); err != nil {
+		log.Fatal("failed to migrate database:", err)
 	}
-	log.Println("Connected to MongoDB!")
-	mongoCollection := client.Database(cfg.MongoCollection).Collection(cfg.MongoCollection)
-	investmentController := controllers.NewInvestmentsController(mongoCollection)
+	log.Println("Connected to PostgreSQL!")
 
+	investmentController := controllers.NewInvestmentsController(db)
 	r := gin.Default()
 	routes.SetupRoutes(r, investmentController)
 
-	log.Println("Server is running on port 8080")
-	log.Fatal(r.Run(":8080"))
+	log.Println("Server is running on port", cfg.Port)
+	log.Fatal(r.Run(":" + cfg.Port))
 }
