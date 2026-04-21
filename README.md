@@ -2,43 +2,6 @@
 
 This project is an investment management application that allows users to manage their investments categorized by asset allocation classes. It consists of a Golang backend that interacts with a PostgreSQL database and a React frontend built with TypeScript.
 
-## Project Structure
-
-```
-invest-tracker
-├── backend                # Backend application
-│   ├── main.go           # Entry point for the Golang application
-│   ├── go.mod            # Module definition and dependencies
-│   ├── go.sum            # Dependency checksums
-│   ├── config             # Configuration settings
-│   │   └── config.go     # Configuration struct
-│   ├── models             # Data models
-│   │   └── investment.go  # Investment data model
-│   ├── routes             # API routes
-│   │   └── investment_routes.go # Investment routes
-│   ├── controllers        # Business logic
-│   │   └── investment_controller.go # Investment controller
-│   └── README.md         # Backend documentation
-├── frontend               # Frontend application
-│   ├── src                # Source files
-│   │   ├── App.tsx       # Main application component
-│   │   ├── index.tsx     # Entry point for the React application
-│   │   ├── components     # React components
-│   │   │   └── InvestmentList.tsx # Investment list component
-│   │   ├── pages          # React pages
-│   │   │   └── AssetAllocation.tsx # Asset allocation management page
-│   │   ├── types          # TypeScript types
-│   │   │   └── investment.ts # Investment data types
-│   │   └── services       # API service functions
-│   │       └── api.ts     # API calls to the backend
-│   ├── package.json       # Frontend dependencies and scripts
-│   ├── tsconfig.json      # TypeScript configuration
-│   └── README.md          # Frontend documentation
-└── README.md              # Project overview and setup instructions
-```
-
-## Getting Started
-
 ### Backend Setup
 
 1. Navigate to the `backend` directory.
