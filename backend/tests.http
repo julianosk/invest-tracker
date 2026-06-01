@@ -1,5 +1,7 @@
 @host = http://localhost:8080
 
+### Fetch all investments
+
 GET {{host}}/api/investments HTTP/1.1
 content-type: application/json
 
